@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm --version)",
+      "Bash(git --version)",
+      "Bash(git init *)",
+      "Bash(corepack enable *)",
+      "Bash(corepack prepare *)",
+      "Bash(pnpm install *)",
+      "Bash(pnpm exec *)",
+      "Bash(pnpm format *)",
+      "Bash(pnpm view *)",
+      "Bash(pnpm *)",
+      "Bash(grep -n \"border: \\\\`1px solid transparent\\\\`\\\\|padding: \\\\`\\\\${space\\\\[12\\\\]} \\\\${space\\\\[16\\\\]} \\\\${space\\\\[12\\\\]} \\\\${space\\\\[32\\\\]}\\\\`\\\\|borderColor: color.border.default\" packages/rich-editor/src/Editor.css.ts)",
+      "WebFetch(domain:developer.atlassian.com)",
+      "WebFetch(domain:atlassian.design)",
+      "Bash(node *)",
+      "WebFetch(domain:www.npmjs.com)",
+      "WebFetch(domain:atlaskit.atlassian.com)",
+      "Bash(git mv *)",
+      "PowerShell(Rename-Item *)",
+      "PowerShell($lockedItems = @\\(\\); Get-ChildItem -Path \"C:\\\\Users\\\\wasim\\\\OneDrive\\\\Desktop\\\\catylast-storybook\\\\packages\\\\react-primitives\" -Recurse -Force -ErrorAction SilentlyContinue | ForEach-Object { try { [IO.File]::Open\\($_.FullName, 'Open', 'Read', 'None'\\).Close\\(\\) } catch { $lockedItems += $_.FullName } }; if \\($lockedItems.Count -eq 0\\) { Write-Output \"no locks detected\" } else { Write-Output \"locked files:\"; $lockedItems | Select-Object -First 10 })",
+      "PowerShell(Get-Item *)",
+      "Bash(xargs sed *)"
+    ]
+  }
+}
