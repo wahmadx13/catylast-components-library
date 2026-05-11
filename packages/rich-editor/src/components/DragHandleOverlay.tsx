@@ -87,7 +87,8 @@ export function DragHandleOverlay({
 
     // For headings, sweep forward to include the whole section — every block
     // until the next heading of equal-or-higher level. Keeps the heading and
-    // its content together when reordering, matching Notion / Confluence.
+    // its content together when reordering, matching the section-reorder
+    // affordance common in block-based editors.
     let sectionEnd = blockPos + node.nodeSize;
     if (node.type.name === "heading") {
       const startLevel = (node.attrs as { level?: number }).level ?? 1;

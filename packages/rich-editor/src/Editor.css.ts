@@ -3,12 +3,12 @@ import {
   color,
   elevation,
   fontFamily,
-  fontSize,
   fontWeight,
   lineHeight,
   motion,
   radius,
   space,
+  typography,
   zIndex,
 } from "@catylast/tokens";
 
@@ -21,7 +21,7 @@ export const container = style({
   border: `1px solid ${color.border.subtle}`,
   borderRadius: radius.md,
   background: color.surface.background,
-  fontFamily: fontFamily.sans,
+  fontFamily: typography.body.medium.fontFamily,
   color: color.text.primary,
   transition: `border-color ${motion.duration.normal} ${motion.easing.standard}, box-shadow ${motion.duration.normal} ${motion.easing.standard}`,
 });
@@ -118,8 +118,8 @@ export const toolbarHeadingTrigger = style({
   background: color.surface.background,
   color: color.text.primary,
   cursor: "pointer",
-  fontFamily: fontFamily.sans,
-  fontSize: fontSize.sm,
+  fontFamily: typography.body.medium.fontFamily,
+  fontSize: typography.body.medium.fontSize,
   fontWeight: fontWeight.medium,
   minWidth: "130px",
   transition: `background ${motion.duration.fast} ${motion.easing.standard}, border-color ${motion.duration.fast} ${motion.easing.standard}`,
@@ -140,7 +140,7 @@ export const toolbarHeadingTrigger = style({
 export const content = style({
   position: "relative",
   padding: `${space[20]} ${space[24]} ${space[20]} ${space[40]}`,
-  fontSize: fontSize.md,
+  fontSize: typography.body.medium.fontSize,
   lineHeight: lineHeight.normal,
   minHeight: "140px",
 });
@@ -165,25 +165,26 @@ globalStyle(`${content} .ProseMirror p:last-child`, {
   marginBottom: 0,
 });
 
-// Headings
+// Headings — map H1 / H2 / H3 to the typography heading slots so the
+// editor's preview matches the rest of the design system exactly.
 globalStyle(`${content} .ProseMirror h1`, {
-  fontSize: fontSize["3xl"],
-  fontWeight: fontWeight.bold,
-  lineHeight: lineHeight.tight,
+  fontSize: typography.heading.large.fontSize,
+  fontWeight: typography.heading.large.fontWeight,
+  lineHeight: typography.heading.large.lineHeight,
   margin: `${space[20]} 0 ${space[8]} 0`,
 });
 
 globalStyle(`${content} .ProseMirror h2`, {
-  fontSize: fontSize["2xl"],
-  fontWeight: fontWeight.semibold,
-  lineHeight: lineHeight.tight,
+  fontSize: typography.heading.medium.fontSize,
+  fontWeight: typography.heading.medium.fontWeight,
+  lineHeight: typography.heading.medium.lineHeight,
   margin: `${space[16]} 0 ${space[6]} 0`,
 });
 
 globalStyle(`${content} .ProseMirror h3`, {
-  fontSize: fontSize.xl,
-  fontWeight: fontWeight.semibold,
-  lineHeight: lineHeight.snug,
+  fontSize: typography.heading.small.fontSize,
+  fontWeight: typography.heading.small.fontWeight,
+  lineHeight: typography.heading.small.lineHeight,
   margin: `${space[12]} 0 ${space[4]} 0`,
 });
 
@@ -253,9 +254,11 @@ globalStyle(`${content} .ProseMirror blockquote`, {
   fontStyle: "italic",
 });
 
-// Inline code
+// Inline code — uses the typography.code slot for the family / size /
+// weight; keeps 0.9em so it shrinks slightly relative to surrounding body
+// text without dropping below the legibility floor.
 globalStyle(`${content} .ProseMirror code`, {
-  fontFamily: fontFamily.mono,
+  fontFamily: typography.code.fontFamily,
   fontSize: "0.9em",
   background: color.surface.sunken,
   padding: `${space[1]} ${space[6]}`,
@@ -265,9 +268,9 @@ globalStyle(`${content} .ProseMirror code`, {
 
 // Code block
 globalStyle(`${content} .ProseMirror pre`, {
-  fontFamily: fontFamily.mono,
-  fontSize: fontSize.sm,
-  lineHeight: lineHeight.snug,
+  fontFamily: typography.code.fontFamily,
+  fontSize: typography.code.fontSize,
+  lineHeight: typography.code.lineHeight,
   margin: `${space[8]} 0`,
   padding: `${space[12]} ${space[16]}`,
   background: color.surface.sunken,
@@ -407,7 +410,7 @@ globalStyle(`${content} .ProseMirror div[data-type="attachment"]`, {
   border: `1px solid ${color.border.default}`,
   borderRadius: radius.md,
   background: color.surface.background,
-  fontFamily: fontFamily.sans,
+  fontFamily: typography.body.medium.fontFamily,
   textDecoration: "none",
   color: "inherit",
   transition: `background ${motion.duration.fast} ${motion.easing.standard}, border-color ${motion.duration.fast} ${motion.easing.standard}, box-shadow ${motion.duration.fast} ${motion.easing.standard}`,
@@ -439,8 +442,8 @@ globalStyle(`${content} .ProseMirror .ce-attachment__tile`, {
   height: "40px",
   flexShrink: 0,
   borderRadius: radius.sm,
-  fontFamily: fontFamily.sans,
-  fontSize: fontSize.xs,
+  fontFamily: typography.body.medium.fontFamily,
+  fontSize: typography.body.small.fontSize,
   fontWeight: fontWeight.bold,
   letterSpacing: "0.04em",
   textTransform: "uppercase",
@@ -533,7 +536,7 @@ globalStyle(`${content} .ProseMirror .ce-attachment__body`, {
 });
 
 globalStyle(`${content} .ProseMirror .ce-attachment__name`, {
-  fontSize: fontSize.sm,
+  fontSize: typography.body.medium.fontSize,
   fontWeight: fontWeight.medium,
   color: color.text.primary,
   lineHeight: lineHeight.tight,
@@ -543,7 +546,7 @@ globalStyle(`${content} .ProseMirror .ce-attachment__name`, {
 });
 
 globalStyle(`${content} .ProseMirror .ce-attachment__meta`, {
-  fontSize: fontSize.xs,
+  fontSize: typography.body.small.fontSize,
   color: color.text.subtle,
   lineHeight: lineHeight.snug,
   whiteSpace: "nowrap",
@@ -651,8 +654,8 @@ export const linkBubble = style({
   border: `1px solid ${color.border.default}`,
   borderRadius: radius.sm,
   boxShadow: elevation.md,
-  fontFamily: fontFamily.sans,
-  fontSize: fontSize.xs,
+  fontFamily: typography.body.medium.fontFamily,
+  fontSize: typography.body.small.fontSize,
   zIndex: zIndex.popover,
 });
 
@@ -704,19 +707,19 @@ export const suggestionList = style({
   border: `1px solid ${color.border.default}`,
   borderRadius: radius.md,
   boxShadow: elevation.lg,
-  fontFamily: fontFamily.sans,
+  fontFamily: typography.body.medium.fontFamily,
 });
 
 export const suggestionEmpty = style({
   padding: `${space[10]} ${space[12]}`,
-  fontSize: fontSize.sm,
+  fontSize: typography.body.medium.fontSize,
   color: color.text.subtle,
   fontStyle: "italic",
   background: color.surface.overlay,
   border: `1px solid ${color.border.default}`,
   borderRadius: radius.md,
   boxShadow: elevation.lg,
-  fontFamily: fontFamily.sans,
+  fontFamily: typography.body.medium.fontFamily,
 });
 
 export const suggestionItem = style({
@@ -729,8 +732,8 @@ export const suggestionItem = style({
   textAlign: "left",
   borderRadius: radius.sm,
   cursor: "pointer",
-  fontFamily: fontFamily.sans,
-  fontSize: fontSize.sm,
+  fontFamily: typography.body.medium.fontFamily,
+  fontSize: typography.body.medium.fontSize,
   color: color.text.primary,
 });
 
@@ -756,7 +759,7 @@ export const suggestionLabel = style({
 });
 
 export const suggestionDescription = style({
-  fontSize: fontSize.xs,
+  fontSize: typography.body.small.fontSize,
   color: color.text.subtle,
 });
 
@@ -771,7 +774,7 @@ export const insertMenu = style({
   border: `1px solid ${color.border.default}`,
   borderRadius: radius.md,
   boxShadow: elevation.lg,
-  fontFamily: fontFamily.sans,
+  fontFamily: typography.body.medium.fontFamily,
   padding: 0,
   overflow: "hidden",
 });
@@ -799,8 +802,8 @@ export const insertSearchInput = style({
   outline: "none",
   background: "transparent",
   paddingLeft: space[24],
-  fontFamily: fontFamily.sans,
-  fontSize: fontSize.sm,
+  fontFamily: typography.body.medium.fontFamily,
+  fontSize: typography.body.medium.fontSize,
   color: color.text.primary,
   selectors: {
     "&::placeholder": { color: color.text.subtle },
@@ -809,7 +812,7 @@ export const insertSearchInput = style({
 
 export const insertEmpty = style({
   padding: `${space[16]} ${space[12]}`,
-  fontSize: fontSize.sm,
+  fontSize: typography.body.medium.fontSize,
   color: color.text.subtle,
   fontStyle: "italic",
   textAlign: "center",
@@ -837,7 +840,7 @@ export const insertItem = style({
   textAlign: "left",
   borderRadius: radius.sm,
   cursor: "pointer",
-  fontFamily: fontFamily.sans,
+  fontFamily: typography.body.medium.fontFamily,
   color: color.text.primary,
   transition: `background ${motion.duration.fast} ${motion.easing.standard}`,
 });
@@ -867,14 +870,14 @@ export const insertItemText = style({
 });
 
 export const insertItemLabel = style({
-  fontSize: fontSize.sm,
+  fontSize: typography.body.medium.fontSize,
   fontWeight: fontWeight.medium,
   color: color.text.primary,
   lineHeight: lineHeight.tight,
 });
 
 export const insertItemDescription = style({
-  fontSize: fontSize.xs,
+  fontSize: typography.body.small.fontSize,
   color: color.text.subtle,
   lineHeight: lineHeight.snug,
   overflow: "hidden",
@@ -899,8 +902,8 @@ export const insertFooterButton = style({
   background: "transparent",
   borderRadius: radius.sm,
   color: color.text.accent,
-  fontFamily: fontFamily.sans,
-  fontSize: fontSize.sm,
+  fontFamily: typography.body.medium.fontFamily,
+  fontSize: typography.body.medium.fontSize,
   fontWeight: fontWeight.medium,
   cursor: "pointer",
   transition: `background ${motion.duration.fast} ${motion.easing.standard}`,
@@ -920,7 +923,7 @@ export const emojiPicker = style({
   border: `1px solid ${color.border.default}`,
   borderRadius: radius.md,
   boxShadow: elevation.lg,
-  fontFamily: fontFamily.sans,
+  fontFamily: typography.body.medium.fontFamily,
   padding: 0,
   overflow: "hidden",
 });
@@ -1024,7 +1027,7 @@ export const modalSurface = style({
   borderRadius: radius.lg,
   boxShadow: elevation.xl,
   overflow: "hidden",
-  fontFamily: fontFamily.sans,
+  fontFamily: typography.body.medium.fontFamily,
 });
 
 export const modalHeader = style({
@@ -1037,8 +1040,9 @@ export const modalHeader = style({
 
 export const modalTitle = style({
   margin: 0,
-  fontSize: fontSize.xl,
-  fontWeight: fontWeight.semibold,
+  fontSize: typography.heading.medium.fontSize,
+  fontWeight: typography.heading.medium.fontWeight,
+  lineHeight: typography.heading.medium.lineHeight,
   color: color.text.primary,
   letterSpacing: "-0.01em",
 });
@@ -1090,8 +1094,8 @@ export const modalSidebarItem = style({
   background: "transparent",
   borderRadius: radius.sm,
   textAlign: "left",
-  fontFamily: fontFamily.sans,
-  fontSize: fontSize.sm,
+  fontFamily: typography.body.medium.fontFamily,
+  fontSize: typography.body.medium.fontSize,
   fontWeight: fontWeight.medium,
   color: color.text.secondary,
   cursor: "pointer",
@@ -1149,8 +1153,8 @@ export const modalSearchInput = style({
   paddingLeft: space[32],
   paddingRight: space[12],
   borderRadius: radius.sm,
-  fontFamily: fontFamily.sans,
-  fontSize: fontSize.sm,
+  fontFamily: typography.body.medium.fontFamily,
+  fontSize: typography.body.medium.fontSize,
   color: color.text.primary,
   selectors: {
     "&::placeholder": { color: color.text.subtle },
@@ -1168,7 +1172,7 @@ export const modalSearchHint = style({
   padding: `${space[2]} ${space[8]}`,
   border: `1px solid ${color.border.subtle}`,
   borderRadius: radius.xs,
-  fontSize: fontSize.xs,
+  fontSize: typography.body.small.fontSize,
   color: color.text.subtle,
   background: color.surface.background,
   flexShrink: 0,
@@ -1177,7 +1181,7 @@ export const modalSearchHint = style({
 export const modalEmpty = style({
   padding: space[40],
   textAlign: "center",
-  fontSize: fontSize.sm,
+  fontSize: typography.body.medium.fontSize,
   color: color.text.subtle,
   fontStyle: "italic",
 });
@@ -1202,7 +1206,7 @@ export const modalCard = style({
   background: color.surface.background,
   textAlign: "left",
   cursor: "pointer",
-  fontFamily: fontFamily.sans,
+  fontFamily: typography.body.medium.fontFamily,
   transition: `border-color ${motion.duration.fast} ${motion.easing.standard}, box-shadow ${motion.duration.fast} ${motion.easing.standard}, background ${motion.duration.fast} ${motion.easing.standard}`,
   selectors: {
     "&:hover": {
@@ -1247,14 +1251,14 @@ export const modalCardText = style({
 });
 
 export const modalCardLabel = style({
-  fontSize: fontSize.sm,
+  fontSize: typography.body.medium.fontSize,
   fontWeight: fontWeight.semibold,
   color: color.text.primary,
   lineHeight: lineHeight.tight,
 });
 
 export const modalCardDescription = style({
-  fontSize: fontSize.xs,
+  fontSize: typography.body.small.fontSize,
   color: color.text.subtle,
   lineHeight: lineHeight.snug,
   display: "-webkit-box",

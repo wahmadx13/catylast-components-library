@@ -2,10 +2,10 @@ import { globalStyle, style, styleVariants } from "@vanilla-extract/css";
 import {
   color,
   elevation,
-  fontFamily,
   motion,
   radius,
   space,
+  typography,
 } from "@catylast/tokens";
 
 /*
@@ -25,7 +25,13 @@ export const root = style({
   isolation: "isolate", // contain bg-image overlay z-index
   background: `var(--card-bg, ${color.surface.background})`,
   color: color.text.primary,
-  fontFamily: fontFamily.sans,
+  // Card establishes the typography baseline for everything inside it.
+  // Consumers compose their own `<Heading>` / `<Text>` inside the slots
+  // for finer control; the default here keeps the surface readable
+  // without explicit children.
+  fontFamily: typography.body.medium.fontFamily,
+  fontSize: typography.body.medium.fontSize,
+  lineHeight: typography.body.medium.lineHeight,
   textAlign: "left",
   boxSizing: "border-box",
   margin: 0,

@@ -2,13 +2,14 @@
 "@catylast/primitives": minor
 ---
 
-Extend `Checkbox` to match Atlassian Design System's full state surface
+Extend `Checkbox` to the full state surface modern design systems expose
 and make every styling dimension customisable through both an enum
 prop and a CSS variable.
 
 **New props:**
-- `isChecked` — controlled checked state (Atlassian-style alias for
-  Radix's `checked`).
+- `isChecked` — controlled checked state (the `is*` boolean naming
+  convention common in modern React libraries, alias for Radix's
+  `checked`).
 - `isIndeterminate` — render the partial / mixed dash glyph.
 - `isDisabled` — alias for the native `disabled` attribute.
 - `isInvalid` — error state. Red border, plus red filled background

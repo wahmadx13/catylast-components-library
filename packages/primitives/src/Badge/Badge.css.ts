@@ -1,11 +1,10 @@
 import { style, styleVariants } from "@vanilla-extract/css";
 import {
   color,
-  fontFamily,
-  fontSize,
   fontWeight,
   radius,
   space,
+  typography,
 } from "@catylast/tokens";
 
 export const root = style({
@@ -14,8 +13,14 @@ export const root = style({
   gap: space[4],
   padding: `${space[2]} ${space[6]}`,
   borderRadius: radius.xs,
-  fontFamily: fontFamily.sans,
-  fontSize: fontSize.xs,
+  // Badge takes its size + line-height + family from the smallest body
+  // typography slot, then overlays uppercase tracking and semibold
+  // weight to produce the classic eyebrow / tag style. The brand bold
+  // (653) is reserved for actual display headings; Badge stays at 600
+  // so it doesn't compete visually with adjacent headings.
+  fontFamily: typography.body.small.fontFamily,
+  fontSize: typography.body.small.fontSize,
+  lineHeight: typography.body.small.lineHeight,
   fontWeight: fontWeight.semibold,
   textTransform: "uppercase",
   letterSpacing: "0.04em",

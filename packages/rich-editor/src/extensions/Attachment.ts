@@ -21,8 +21,8 @@ declare module "@tiptap/core" {
  * Generic file-attachment block. Renders as a card-like row containing:
  *
  * - a square "tile" with the file kind (PDF, ZIP, DOC, …) drawn as text
- *   on a colored background — the same affordance Jira / Confluence /
- *   GitHub use for attachments,
+ *   on a colored background — the same affordance issue trackers and
+ *   docs apps use for attachments,
  * - the filename,
  * - a meta line with the human file size and MIME type,
  * - a trailing download anchor that opens the URL in a new tab.

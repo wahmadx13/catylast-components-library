@@ -21,12 +21,12 @@ import * as CardStories from "./Card.stories";
 Three visual variants, five states, four named slots, and an independent
 knob for every styling dimension (size, radius, padding, elevation, tone)
 — all token-driven, all overridable per instance via prop **or** CSS
-variable. The Jira-style work-item card is a **composition** built on top
+variable. The work-item card is a **composition** built on top
 of `Card`, not a separate component.
 
-For the architectural reasoning (why Atlassian DS doesn't ship a `Card`
-and how we ended up with this two-layer approach), see **CLAUDE.md §17**
-in the repo root.
+For the architectural reasoning (why some design-system playbooks don't
+ship a `Card` primitive at all and how we ended up with this two-layer
+approach), see **CLAUDE.md §17** in the repo root.
 
 ---
 
@@ -95,7 +95,7 @@ the page.
 | **Hero / marketing card**       | Image-led card promoting an article, feature, or event.                             | [Cover image](#cover-image)            |
 | **Branded callout**             | Status-coded card on a board (priority, risk, severity).                            | [Tones](#tones)                        |
 | **Image-backed dashboard tile** | Big visual block with foreground stats / CTA on top.                                | [Background image](#background-image) |
-| **Composed work-item card**     | Jira-style issue card (icon + key + title + assignee + points) — built from `Card`. | [Work-item composition](#work-item-composition) |
+| **Composed work-item card**     | Ticket-style card (icon + key + title + assignee + points) — built from `Card`.     | [Work-item composition](#work-item-composition) |
 
 ---
 
@@ -298,7 +298,7 @@ const toggle = (id) =>
 
 ## Work-item composition
 
-The Jira-style work-item card is **not** shipped as its own component. It
+The ticket-style work-item card is **not** shipped as its own component. It
 is a **composition** of `Card` + the design-system primitives. This keeps
 the primitive flexible and lets each Catylast surface bend the layout to
 its own context (board card vs. backlog row vs. expanded detail).

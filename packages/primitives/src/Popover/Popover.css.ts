@@ -2,10 +2,9 @@ import { style } from "@vanilla-extract/css";
 import {
   color,
   elevation,
-  fontFamily,
-  fontSize,
   radius,
   space,
+  typography,
   zIndex,
 } from "@catylast/tokens";
 
@@ -16,8 +15,9 @@ export const content = style({
   borderRadius: radius.md,
   boxShadow: elevation.lg,
   padding: space[12],
-  fontFamily: fontFamily.sans,
-  fontSize: fontSize.sm,
+  fontFamily: typography.body.medium.fontFamily,
+  fontSize: typography.body.medium.fontSize,
+  lineHeight: typography.body.medium.lineHeight,
   minWidth: "220px",
   zIndex: zIndex.popover,
   outline: "none",

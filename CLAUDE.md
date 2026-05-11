@@ -212,7 +212,7 @@ retroactively.
 
 Package names drop the `react-` prefix even though every component is React.
 The framework is implied by the peer dependency, not by the name. This matches
-the convention used by Atlassian (`@atlaskit/button`), Mantine, and Radix UI.
+the convention used by Mantine, Radix UI, and other modern React libraries.
 Framework-agnostic packages (`@catylast/tokens`, `@catylast/theme`,
 `@catylast/icons`) follow the same naming.
 
@@ -435,35 +435,35 @@ This section records the architectural decision behind how Card is built in
 Catylast, including the prior art we looked at and the reasoning. Read this
 before starting work on `Card` or `WorkItemCard`.
 
-### 17.1 Why Atlassian's Design System has no `Card`
+### 17.1 Why some design systems don't ship a `Card`
 
-The official Atlassian Design System (atlassian.design/components) deliberately
-does **not** ship a `Card` component. Instead, it provides:
+Several mature design systems deliberately do **not** ship a `Card` component.
+Instead, they provide:
 
 - **Layout primitives** — `Box`, `Stack`, `Inline`, `Flex`, `Grid`, `Bleed`
 - **Interaction primitives** — `Pressable`, `Anchor`, `Focusable`
-- **Content building blocks** — `Heading`, `Text`, `Tile`, `Avatar`, `Lozenge`,
-  `Tag`, `Badge`
+- **Content building blocks** — `Heading`, `Text`, `Tile`, `Avatar`, `Badge`,
+  `Tag`
 
-Their philosophy: a "card" is a *composition* of a bordered/elevated surface
+The philosophy: a "card" is a *composition* of a bordered/elevated surface
 (`Box` with token-driven styling), a vertical layout (`Stack`), and whatever
 content the consumer needs. Packaging that into a single `Card` component
 would either lock consumers into one rigid layout or balloon into a
 multi-slot kitchen sink that's harder to use than the primitives it wraps.
-This is the same reasoning behind their lack of a `Modal` primitive (they
-use `Dialog` slots), and it follows Adobe Spectrum and Radix's pattern
-philosophy.
+This is the same reasoning behind not shipping a `Modal` primitive
+(use `Dialog` slots instead), and it follows the pattern philosophy used
+by Adobe Spectrum and Radix.
 
-The closest thing they ship is **`Tile`** — a rounded square that displays a
-single asset (logo, app icon, document thumbnail). It is *not* a content
-card; it is a thumbnail.
+The closest thing those libraries do ship is something like **`Tile`** —
+a rounded square that displays a single asset (logo, app icon, document
+thumbnail). It is *not* a content card; it is a thumbnail.
 
-### 17.2 What Jira actually renders as a "card"
+### 17.2 What ticket trackers actually render as a "card"
 
-Jira-the-product is built on top of the design system, but it does have a
-recognizable **issue card** that appears on every board, backlog row, and
-search result. It is not a primitive — it is a Jira-app composition built
-from the DS primitives above. Its slots:
+Issue-tracking products are built on top of a design system but typically
+add a recognizable **work-item card** that appears on every board, backlog
+row, and search result. It is not a primitive — it is an app-level
+composition built from the DS primitives above. Its slots:
 
 - **Cover stripe** (optional) — color or image
 - **Top row** — work-item type icon + key (e.g. `CAT-123`) on the left,
@@ -473,15 +473,15 @@ from the DS primitives above. Its slots:
 - **Bottom row** — assignee avatar(s), story-point or estimate badge,
   sub-task progress, due date, label dots / pills
 
-Trello's card adds: cover image, label patterns (colorblind-aware),
+Kanban-style boards add: cover image, label patterns (colorblind-aware),
 attachment / checklist / comment / vote badges, member avatars, stickers,
 custom fields. Same pattern, more decoration.
 
 ### 17.3 Our approach — two layers
 
-We follow Atlassian's footsteps **for the primitives** but ship the
-Jira-style composition ourselves so the Catylast app doesn't reinvent it
-in every consuming surface. Concretely:
+We follow the compositional design-system philosophy **for the primitives**
+but ship the ticket-style work-item composition ourselves so the Catylast
+app doesn't reinvent it in every consuming surface. Concretely:
 
 1. **`Card` primitive (in `@catylast/card`)** — a thin styled surface. Not
    domain-specific. Equivalent to `Box` with card affordances added on top.
@@ -502,7 +502,7 @@ in every consuming surface. Concretely:
      No hardcoded values.
 
 2. **`WorkItemCard` composition (separate package, e.g.
-   `@catylast/work-item` — TBD)** — the Jira-style issue card built
+   `@catylast/work-item` — TBD)** — the ticket-style work-item card built
    *on top of* `Card`. Domain-shaped props:
 
    - `id`, `title`, `type` (story / bug / task / epic / subtask), `status`,
@@ -537,10 +537,10 @@ consistency across all those surfaces and turns `WorkItemCard` into a
 20-line composition instead of a 200-line one. It also lets us ship Phase 1
 *now*, before the work-item shape is locked.
 
-### 17.6 Why not skip both and follow Atlassian exactly?
+### 17.6 Why not skip both and ship only primitives?
 
 Two reasons. First, every Catylast surface needs a card-shaped container
 and we don't want six developers writing six slightly different "Box with a
-border" implementations. Second, the design intent for Catylast (Jira
-replacement) means board cards are a load-bearing UI — they justify
-shipping a primitive that makes them trivial to compose.
+border" implementations. Second, the design intent for Catylast (a modern
+ticket / project management product) means board cards are a load-bearing
+UI — they justify shipping a primitive that makes them trivial to compose.

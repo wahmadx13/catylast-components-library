@@ -164,3 +164,19 @@ export type {
 
 export { Tooltip } from "./Tooltip";
 export type { TooltipProps } from "./Tooltip";
+
+export { Heading, Text, Metric, Code } from "./Typography";
+export type {
+  CodeProps,
+  HeadingLevel,
+  HeadingProps,
+  HeadingSize,
+  MetricProps,
+  MetricSize,
+  TextAlign,
+  TextElementType,
+  TextProps,
+  TextSize,
+  TextWeight,
+  TypographyColor,
+} from "./Typography";

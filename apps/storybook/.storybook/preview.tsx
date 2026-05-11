@@ -2,6 +2,15 @@ import type { Decorator, Preview } from "@storybook/react-vite";
 import { useEffect } from "react";
 import type { ReactNode } from "react";
 
+// Load brand fonts as variable fonts (continuous weight axis 100–900).
+// `@fontsource-variable/...` registers `@font-face` rules under the names
+// "Inter Variable" and "JetBrains Mono Variable" — the same names that
+// lead Catylast's `fontFamily.sans` / `fontFamily.mono` token stacks.
+// Required for the custom 653 weight axis used by headings to render
+// faithfully; a static font would round to 700.
+import "@fontsource-variable/inter";
+import "@fontsource-variable/jetbrains-mono";
+
 import "@catylast/tokens/tokens.css";
 import "@catylast/primitives/styles.css";
 import "@catylast/dynamic-table/styles.css";

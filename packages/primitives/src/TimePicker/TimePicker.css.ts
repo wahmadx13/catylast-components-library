@@ -1,12 +1,11 @@
 import { globalStyle, style, styleVariants } from "@vanilla-extract/css";
 import {
   color,
-  fontFamily,
-  fontSize,
   fontWeight,
   motion,
   radius,
   space,
+  typography,
 } from "@catylast/tokens";
 
 /*
@@ -30,8 +29,8 @@ export const trigger = style({
   color: `var(--timepicker-color, ${color.text.primary})`,
   border: `var(--timepicker-border-width, 1px) solid var(--timepicker-border-color, ${color.border.default})`,
   borderRadius: `var(--timepicker-radius, ${radius.sm})`,
-  fontFamily: fontFamily.sans,
-  fontSize: `var(--timepicker-font-size, ${fontSize.sm})`,
+  fontFamily: typography.body.medium.fontFamily,
+  fontSize: `var(--timepicker-font-size, ${typography.body.medium.fontSize})`,
   cursor: "text",
   boxSizing: "border-box",
   transition: [
@@ -143,8 +142,8 @@ export const listItem = style({
   paddingBlock: space[6],
   borderRadius: radius.sm,
   cursor: "pointer",
-  fontFamily: fontFamily.sans,
-  fontSize: `var(--timepicker-font-size, ${fontSize.sm})`,
+  fontFamily: typography.body.medium.fontFamily,
+  fontSize: `var(--timepicker-font-size, ${typography.body.medium.fontSize})`,
   color: color.text.primary,
   margin: 0,
   selectors: {
@@ -172,8 +171,8 @@ export const emptyState = style({
   paddingInline: space[12],
   paddingBlock: space[16],
   color: color.text.subtle,
-  fontSize: fontSize.sm,
-  fontFamily: fontFamily.sans,
+  fontSize: typography.body.medium.fontSize,
+  fontFamily: typography.body.medium.fontFamily,
   textAlign: "center",
 });
 
@@ -185,7 +184,7 @@ export const size = styleVariants({
       "--timepicker-min-height": "24px",
       "--timepicker-padding-y": space[2],
       "--timepicker-padding-x": space[8],
-      "--timepicker-font-size": fontSize.xs,
+      "--timepicker-font-size": typography.body.small.fontSize,
     },
   },
   medium: {
@@ -193,7 +192,7 @@ export const size = styleVariants({
       "--timepicker-min-height": "32px",
       "--timepicker-padding-y": space[6],
       "--timepicker-padding-x": space[10],
-      "--timepicker-font-size": fontSize.sm,
+      "--timepicker-font-size": typography.body.medium.fontSize,
     },
   },
   large: {
@@ -201,7 +200,7 @@ export const size = styleVariants({
       "--timepicker-min-height": "40px",
       "--timepicker-padding-y": space[8],
       "--timepicker-padding-x": space[12],
-      "--timepicker-font-size": fontSize.md,
+      "--timepicker-font-size": typography.body.large.fontSize,
     },
   },
 });

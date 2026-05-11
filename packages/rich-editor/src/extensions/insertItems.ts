@@ -228,14 +228,14 @@ export function buildDefaultInsertElements(opts?: {
       },
     },
 
-    // ───────── confluence ─────────
+    // ───────── workspace ─────────
     {
       id: "page-link",
       label: "Page link",
       description: "Link to a Catylast docs page",
       icon: "file-text",
       iconTint: "var(--catylast-color-blue-100)",
-      category: "confluence",
+      category: "workspace",
       keywords: ["doc", "page", "wiki", "link"],
       run: ({ editor }) => {
         const url = promptForUrl("Page URL");
@@ -253,7 +253,7 @@ export function buildDefaultInsertElements(opts?: {
       description: "Embed a live list of docs pages",
       icon: "clipboard-list",
       iconTint: "var(--catylast-color-blue-100)",
-      category: "confluence",
+      category: "workspace",
       keywords: ["pages", "index", "wiki", "list"],
       run: ({ editor }) =>
         editor
@@ -269,7 +269,7 @@ export function buildDefaultInsertElements(opts?: {
       description: "Auto-generated outline of headings on this page",
       icon: "list-ordered",
       iconTint: "var(--catylast-color-purple-100)",
-      category: "confluence",
+      category: "workspace",
       keywords: ["toc", "outline", "headings"],
       run: ({ editor }) =>
         editor

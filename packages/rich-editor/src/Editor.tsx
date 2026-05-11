@@ -139,7 +139,7 @@ export type RichEditorProps = {
   slashCommands?: SlashCommand[] | false;
   /**
    * Items shown in the toolbar's `+ Insert element` dropdown and the browse
-   * modal. The default set covers the built-in content/dev/external/confluence
+   * modal. The default set covers the built-in content/dev/external/workspace
    * items; pass an array to extend, or replace it entirely.
    */
   insertElements?: InsertElement[];

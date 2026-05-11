@@ -1,12 +1,11 @@
 import { globalStyle, keyframes, style, styleVariants } from "@vanilla-extract/css";
 import {
   color,
-  fontFamily,
-  fontSize,
   fontWeight,
   motion,
   radius,
   space,
+  typography,
 } from "@catylast/tokens";
 
 /*
@@ -26,9 +25,16 @@ export const root = style({
   gap: `var(--btn-gap, ${space[6]})`,
   border: `var(--btn-border-width, 1px) solid var(--btn-border-color, transparent)`,
   borderRadius: `var(--btn-radius, ${radius.sm})`,
-  fontFamily: fontFamily.sans,
+  // Family + per-size font-size come from the body typography slots
+  // (set via `--btn-font-size` in the `size` variants below). Weight
+  // stays medium (500) regardless of size — Button text is UI label,
+  // not display copy, so we don't promote it to the brand bold (653).
+  // Line-height is intentionally tight (1.2) since buttons don't wrap;
+  // the slot line-heights (16/20/24) are tuned for reading flow which
+  // would leave too much vertical space around a single-line label.
+  fontFamily: typography.body.medium.fontFamily,
   fontWeight: `var(--btn-font-weight, ${fontWeight.medium})`,
-  fontSize: `var(--btn-font-size, ${fontSize.sm})`,
+  fontSize: `var(--btn-font-size, ${typography.body.medium.fontSize})`,
   lineHeight: 1.2,
   paddingInline: `var(--btn-padding-x, ${space[12]})`,
   paddingBlock: `var(--btn-padding-y, ${space[6]})`,
@@ -96,7 +102,7 @@ export const root = style({
 export const size = styleVariants({
   small: {
     vars: {
-      "--btn-font-size": fontSize.xs,
+      "--btn-font-size": typography.body.small.fontSize,
       "--btn-min-height": "24px",
       "--btn-padding-y": space[4],
       "--btn-padding-x": space[8],
@@ -106,7 +112,7 @@ export const size = styleVariants({
   },
   medium: {
     vars: {
-      "--btn-font-size": fontSize.sm,
+      "--btn-font-size": typography.body.medium.fontSize,
       "--btn-min-height": "32px",
       "--btn-padding-y": space[6],
       "--btn-padding-x": space[12],
@@ -116,7 +122,7 @@ export const size = styleVariants({
   },
   large: {
     vars: {
-      "--btn-font-size": fontSize.md,
+      "--btn-font-size": typography.body.large.fontSize,
       "--btn-min-height": "40px",
       "--btn-padding-y": space[8],
       "--btn-padding-x": space[16],

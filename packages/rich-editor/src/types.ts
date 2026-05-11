@@ -72,10 +72,10 @@ export type UploadResult = {
 /** Consumer-supplied uploader for image / video / file uploads. */
 export type UploadFn = (file: File) => Promise<UploadResult>;
 
-/** The four browse-modal categories. Rovo is intentionally omitted. */
+/** The four browse-modal categories. */
 export type InsertElementCategory =
   | "content"
-  | "confluence"
+  | "workspace"
   | "external"
   | "development";
 

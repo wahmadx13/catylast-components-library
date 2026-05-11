@@ -1,12 +1,11 @@
 import { style, styleVariants } from "@vanilla-extract/css";
 import {
   color,
-  fontFamily,
-  fontSize,
   fontWeight,
   motion,
   radius,
   space,
+  typography,
 } from "@catylast/tokens";
 
 /*
@@ -23,7 +22,7 @@ export const root = style({
   flexDirection: "column",
   background: `var(--cal-bg, ${color.surface.background})`,
   color: `var(--cal-color, ${color.text.primary})`,
-  fontFamily: fontFamily.sans,
+  fontFamily: typography.body.medium.fontFamily,
   border: `var(--cal-border-width, 1px) solid var(--cal-border-color, ${color.border.subtle})`,
   borderRadius: `var(--cal-radius, ${radius.md})`,
   padding: `var(--cal-padding, ${space[12]})`,
@@ -47,24 +46,24 @@ export const size = styleVariants({
   small: {
     vars: {
       "--cal-cell-size": "28px",
-      "--cal-day-font-size": fontSize.xs,
-      "--cal-header-font-size": fontSize.sm,
+      "--cal-day-font-size": typography.body.small.fontSize,
+      "--cal-header-font-size": typography.body.medium.fontSize,
       "--cal-padding": space[8],
     },
   },
   medium: {
     vars: {
       "--cal-cell-size": "36px",
-      "--cal-day-font-size": fontSize.sm,
-      "--cal-header-font-size": fontSize.md,
+      "--cal-day-font-size": typography.body.medium.fontSize,
+      "--cal-header-font-size": typography.heading.small.fontSize,
       "--cal-padding": space[12],
     },
   },
   large: {
     vars: {
       "--cal-cell-size": "44px",
-      "--cal-day-font-size": fontSize.md,
-      "--cal-header-font-size": fontSize.lg,
+      "--cal-day-font-size": typography.body.large.fontSize,
+      "--cal-header-font-size": typography.heading.medium.fontSize,
       "--cal-padding": space[16],
     },
   },
@@ -81,7 +80,7 @@ export const header = style({
 });
 
 export const monthLabel = style({
-  fontSize: `var(--cal-header-font-size, ${fontSize.md})`,
+  fontSize: `var(--cal-header-font-size, ${typography.heading.small.fontSize})`,
   fontWeight: `var(--cal-header-font-weight, ${fontWeight.semibold})`,
   color: `var(--cal-header-color, ${color.text.primary})`,
   textAlign: "center",
@@ -139,7 +138,7 @@ export const weekdayCell = style({
   justifyContent: "center",
   width: `var(--cal-cell-size, 36px)`,
   height: `var(--cal-cell-size, 36px)`,
-  fontSize: `var(--cal-weekday-font-size, ${fontSize.xs})`,
+  fontSize: `var(--cal-weekday-font-size, ${typography.body.small.fontSize})`,
   fontWeight: `var(--cal-weekday-font-weight, ${fontWeight.medium})`,
   color: `var(--cal-weekday-color, ${color.text.subtle})`,
   textTransform: "uppercase",
@@ -177,7 +176,7 @@ export const dayCell = style({
   background: `var(--cal-day-bg, transparent)`,
   color: `var(--cal-day-color, ${color.text.primary})`,
   fontFamily: "inherit",
-  fontSize: `var(--cal-day-font-size, ${fontSize.sm})`,
+  fontSize: `var(--cal-day-font-size, ${typography.body.medium.fontSize})`,
   fontWeight: `var(--cal-day-font-weight, ${fontWeight.regular})`,
   cursor: "pointer",
   appearance: "none",

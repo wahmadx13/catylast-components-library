@@ -7,10 +7,19 @@
  * `var()` so the indirection is preserved.
  */
 
+// The component library targets Inter Variable (sans) and JetBrains Mono
+// Variable (mono) — variable fonts so the custom 653 weight axis used by
+// Catylast headings renders accurately. Both families list both the
+// "-Variable" name (registered by `@fontsource-variable/...`) and the
+// short name (registered by `@fontsource/...`) so either delivery path
+// works. Past the brand fonts, the stacks fall back to system fonts so
+// consumers that haven't loaded the woff2 files still get a sensible
+// render (with weight 653 rounded to the nearest available — typically
+// 700 — by the browser).
 const FONT_SANS =
-  "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif";
+  '"Inter Variable", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
 const FONT_MONO =
-  "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace";
+  '"JetBrains Mono Variable", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace';
 
 export const primitives = {
   color: {
@@ -138,13 +147,140 @@ export const primitives = {
       regular: 400,
       medium: 500,
       semibold: 600,
-      bold: 700,
+      // Catylast "bold" maps to the custom Inter Variable axis value
+      // 653 — not the canonical 700. This is what the designer
+      // specified for headings and the bold body / metric styles.
+      // Requires Inter Variable to render exactly; static Inter falls
+      // back to ~700.
+      bold: 653,
     },
     lineHeight: {
       tight: 1.15,
       snug: 1.3,
       normal: 1.5,
       loose: 1.75,
+    },
+  },
+  /**
+   * Semantic typography slots — every text style the design system
+   * uses, mapped 1:1 to the spec the Catylast designer provided.
+   * Components reference these instead of composing `fontSize` /
+   * `fontWeight` / `lineHeight` themselves.
+   *
+   * Each slot is a flat object of `{ fontSize, fontWeight,
+   * lineHeight, fontFamily }`. The `_buildVars` machinery emits one
+   * CSS variable per property (e.g.
+   * `--catylast-typography-heading-large-font-size`) and one JS
+   * accessor per property (`typography.heading.large.fontSize`).
+   * Components can spread the slot directly into a `style` prop:
+   *
+   * ```tsx
+   * <h2 style={typography.heading.large}>Section title</h2>
+   * ```
+   *
+   * Body slots default to weight 400 (regular). The `<Text>`
+   * primitive overrides the weight per its `weight` prop without
+   * touching the size / line-height / family. Heading and Metric
+   * slots ship with the custom 653 weight baked in.
+   */
+  typography: {
+    heading: {
+      xxlarge: {
+        fontSize: "32px",
+        fontWeight: 653,
+        lineHeight: "36px",
+        fontFamily: FONT_SANS,
+      },
+      xlarge: {
+        fontSize: "28px",
+        fontWeight: 653,
+        lineHeight: "32px",
+        fontFamily: FONT_SANS,
+      },
+      large: {
+        fontSize: "24px",
+        fontWeight: 653,
+        lineHeight: "28px",
+        fontFamily: FONT_SANS,
+      },
+      medium: {
+        fontSize: "20px",
+        fontWeight: 653,
+        lineHeight: "24px",
+        fontFamily: FONT_SANS,
+      },
+      small: {
+        fontSize: "16px",
+        fontWeight: 653,
+        lineHeight: "20px",
+        fontFamily: FONT_SANS,
+      },
+      xsmall: {
+        fontSize: "14px",
+        fontWeight: 653,
+        lineHeight: "20px",
+        fontFamily: FONT_SANS,
+      },
+      xxsmall: {
+        fontSize: "12px",
+        fontWeight: 653,
+        lineHeight: "16px",
+        fontFamily: FONT_SANS,
+      },
+    },
+    body: {
+      xlarge: {
+        fontSize: "20px",
+        fontWeight: 400,
+        lineHeight: "24px",
+        fontFamily: FONT_SANS,
+      },
+      large: {
+        fontSize: "16px",
+        fontWeight: 400,
+        lineHeight: "24px",
+        fontFamily: FONT_SANS,
+      },
+      // The default body style for the entire design system. Any
+      // unstyled paragraph or label inherits these values.
+      medium: {
+        fontSize: "14px",
+        fontWeight: 400,
+        lineHeight: "20px",
+        fontFamily: FONT_SANS,
+      },
+      small: {
+        fontSize: "12px",
+        fontWeight: 400,
+        lineHeight: "16px",
+        fontFamily: FONT_SANS,
+      },
+    },
+    metric: {
+      large: {
+        fontSize: "28px",
+        fontWeight: 653,
+        lineHeight: "32px",
+        fontFamily: FONT_SANS,
+      },
+      medium: {
+        fontSize: "24px",
+        fontWeight: 653,
+        lineHeight: "28px",
+        fontFamily: FONT_SANS,
+      },
+      small: {
+        fontSize: "16px",
+        fontWeight: 653,
+        lineHeight: "20px",
+        fontFamily: FONT_SANS,
+      },
+    },
+    code: {
+      fontSize: "12px",
+      fontWeight: 400,
+      lineHeight: "20px",
+      fontFamily: FONT_MONO,
     },
   },
   borderWidth: {

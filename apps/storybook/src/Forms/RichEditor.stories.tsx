@@ -8,7 +8,7 @@ import {
 import { color, fontFamily, space } from "@catylast/tokens";
 import { useState } from "react";
 
-const componentDescription = `A Tiptap-backed rich text editor with a Jira-style inline-edit pattern. Renders read-only by default; click anywhere on the content to switch to edit mode (toolbar appears, content becomes editable, Save / Cancel buttons appear at the bottom).
+const componentDescription = `A Tiptap-backed rich text editor with a click-to-edit pattern. Renders read-only by default; click anywhere on the content to switch to edit mode (toolbar appears, content becomes editable, Save / Cancel buttons appear at the bottom).
 
 **Toolbar features are dynamic via prop.** Pass a preset (\`"basic"\` / \`"standard"\` / \`"full"\`), a custom array of feature keys, or \`false\` to hide it.
 
@@ -479,7 +479,7 @@ export const InsertElementMenu: Story = {
     docs: {
       description: {
         story:
-          "The toolbar's **+** button opens a compact dropdown of insertable elements (icon + title + one-liner) with a search field at the top. Click **Browse all** to open the full modal — sidebar with All / Content / Confluence / External / Development categories, search, and a card grid. Modeled after Jira's *Insert element* surface.",
+          "The toolbar's **+** button opens a compact dropdown of insertable elements (icon + title + one-liner) with a search field at the top. Click **Browse all** to open the full modal — sidebar with All / Content / Workspace / External / Development categories, search, and a card grid. Modeled after the *Insert element* surfaces common in modern issue trackers.",
       },
     },
   },
@@ -516,7 +516,7 @@ const customElements: InsertElement[] = [
     description: "Embed the latest version of the handbook",
     icon: "file-text",
     iconTint: "var(--catylast-color-blue-100)",
-    category: "confluence",
+    category: "workspace",
     keywords: ["docs", "handbook", "guide"],
     run: ({ editor }) =>
       editor
@@ -532,7 +532,7 @@ export const CustomInsertElements: Story = {
     docs: {
       description: {
         story:
-          "Pass `insertElements` to extend the menu with consumer-specific items. By default they're appended to the built-in set; set `replaceInsertElements` to swap the list entirely. Each item supplies an icon, label, one-line description, category (`content` / `confluence` / `external` / `development`), and a `run({ editor })` callback that drives the insert.",
+          "Pass `insertElements` to extend the menu with consumer-specific items. By default they're appended to the built-in set; set `replaceInsertElements` to swap the list entirely. Each item supplies an icon, label, one-line description, category (`content` / `workspace` / `external` / `development`), and a `run({ editor })` callback that drives the insert.",
       },
     },
   },

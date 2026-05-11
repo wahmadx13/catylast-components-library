@@ -2,12 +2,11 @@ import { style, styleVariants } from "@vanilla-extract/css";
 import {
   color,
   elevation,
-  fontFamily,
-  fontSize,
   fontWeight,
   motion,
   radius,
   space,
+  typography,
   zIndex,
 } from "@catylast/tokens";
 
@@ -21,8 +20,9 @@ export const trigger = style({
   background: color.surface.background,
   color: color.text.primary,
   cursor: "pointer",
-  fontFamily: fontFamily.sans,
-  fontSize: fontSize.sm,
+  fontFamily: typography.body.medium.fontFamily,
+  fontSize: typography.body.medium.fontSize,
+  lineHeight: typography.body.medium.lineHeight,
   whiteSpace: "nowrap",
   transition: `background ${motion.duration.fast} ${motion.easing.standard}, border-color ${motion.duration.fast} ${motion.easing.standard}`,
   selectors: {
@@ -83,8 +83,9 @@ export const content = style({
   borderRadius: radius.md,
   padding: space[4],
   boxShadow: elevation.lg,
-  fontFamily: fontFamily.sans,
-  fontSize: fontSize.sm,
+  fontFamily: typography.body.medium.fontFamily,
+  fontSize: typography.body.medium.fontSize,
+  lineHeight: typography.body.medium.lineHeight,
   color: color.text.primary,
   minWidth: "var(--radix-select-trigger-width)",
   maxHeight: "var(--radix-select-content-available-height)",
@@ -135,7 +136,7 @@ export const separator = style({
 
 export const label = style({
   padding: `${space[6]} ${space[8]}`,
-  fontSize: fontSize.xs,
+  fontSize: typography.body.small.fontSize,
   fontWeight: fontWeight.semibold,
   color: color.text.subtle,
   textTransform: "uppercase",

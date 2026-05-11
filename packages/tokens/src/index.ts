@@ -23,6 +23,21 @@ export const fontFamily = makeVars(primitives.font.family, ["font", "family"]);
 export const fontSize = makeVars(primitives.font.size, ["font", "size"]);
 export const fontWeight = makeVars(primitives.font.weight, ["font", "weight"]);
 export const lineHeight = makeVars(primitives.font.lineHeight, ["font", "line-height"]);
+
+/**
+ * Semantic typography slots — the design-system text styles.
+ *
+ * Each slot is `{ fontSize, fontWeight, lineHeight, fontFamily }`
+ * pointing at CSS variables. Spread one into a `style` prop to apply
+ * the full style, or destructure properties for finer control.
+ *
+ * Slots:
+ * - `typography.heading.{xxlarge|xlarge|large|medium|small|xsmall|xxsmall}` — display weight 653
+ * - `typography.body.{xlarge|large|medium|small}` — default weight 400 (override with `<Text weight="...">`)
+ * - `typography.metric.{large|medium|small}` — bold numeric, weight 653, tabular-friendly
+ * - `typography.code` — monospace inline / block code
+ */
+export const typography = makeVars(primitives.typography, ["typography"]);
 export const borderWidth = makeVars(primitives.borderWidth, ["border-width"]);
 export const motion = makeVars(primitives.motion, ["motion"]);
 export const zIndex = makeVars(primitives.zIndex, ["z-index"]);

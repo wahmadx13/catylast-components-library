@@ -1,11 +1,10 @@
 import { keyframes, style, styleVariants } from "@vanilla-extract/css";
 import {
   color,
-  fontFamily,
-  fontSize,
   motion,
   radius,
   space,
+  typography,
 } from "@catylast/tokens";
 
 /*
@@ -23,8 +22,9 @@ export const wrapper = style({
   alignItems: "flex-start",
   gap: `var(--checkbox-gap, ${space[8]})`,
   cursor: "pointer",
-  fontFamily: fontFamily.sans,
-  fontSize: `var(--checkbox-label-font-size, ${fontSize.sm})`,
+  fontFamily: typography.body.medium.fontFamily,
+  fontSize: `var(--checkbox-label-font-size, ${typography.body.medium.fontSize})`,
+  lineHeight: typography.body.medium.lineHeight,
   color: `var(--checkbox-label-color, ${color.text.primary})`,
   userSelect: "none",
   selectors: {
@@ -100,21 +100,21 @@ export const size = styleVariants({
     vars: {
       "--checkbox-size": "14px",
       "--checkbox-icon-size": "10px",
-      "--checkbox-label-font-size": fontSize.xs,
+      "--checkbox-label-font-size": typography.body.small.fontSize,
     },
   },
   medium: {
     vars: {
       "--checkbox-size": "16px",
       "--checkbox-icon-size": "12px",
-      "--checkbox-label-font-size": fontSize.sm,
+      "--checkbox-label-font-size": typography.body.medium.fontSize,
     },
   },
   large: {
     vars: {
       "--checkbox-size": "20px",
       "--checkbox-icon-size": "14px",
-      "--checkbox-label-font-size": fontSize.md,
+      "--checkbox-label-font-size": typography.body.large.fontSize,
     },
   },
 });

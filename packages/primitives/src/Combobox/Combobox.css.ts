@@ -1,11 +1,10 @@
 import { style, styleVariants } from "@vanilla-extract/css";
 import {
   color,
-  fontFamily,
-  fontSize,
   motion,
   radius,
   space,
+  typography,
 } from "@catylast/tokens";
 
 export const trigger = style({
@@ -18,8 +17,9 @@ export const trigger = style({
   background: color.surface.background,
   color: color.text.primary,
   cursor: "pointer",
-  fontFamily: fontFamily.sans,
-  fontSize: fontSize.sm,
+  fontFamily: typography.body.medium.fontFamily,
+  fontSize: typography.body.medium.fontSize,
+  lineHeight: typography.body.medium.lineHeight,
   whiteSpace: "nowrap",
   width: "100%",
   textAlign: "left",
@@ -118,8 +118,8 @@ export const input = style({
   border: "none",
   background: "transparent",
   padding: `${space[4]} 0`,
-  fontFamily: fontFamily.sans,
-  fontSize: fontSize.sm,
+  fontFamily: typography.body.medium.fontFamily,
+  fontSize: typography.body.medium.fontSize,
   color: color.text.primary,
   outline: "none",
   selectors: {
@@ -138,7 +138,7 @@ export const list = style({
 export const empty = style({
   padding: `${space[16]} ${space[8]}`,
   textAlign: "center",
-  fontSize: fontSize.sm,
+  fontSize: typography.body.medium.fontSize,
   color: color.text.subtle,
 });
 

@@ -1,11 +1,10 @@
 import { style, styleVariants } from "@vanilla-extract/css";
 import {
   color,
-  fontFamily,
-  fontSize,
   motion,
   radius,
   space,
+  typography,
 } from "@catylast/tokens";
 
 /*
@@ -30,8 +29,8 @@ export const trigger = style({
   color: `var(--datepicker-color, ${color.text.primary})`,
   border: `var(--datepicker-border-width, 1px) solid var(--datepicker-border-color, ${color.border.default})`,
   borderRadius: `var(--datepicker-radius, ${radius.sm})`,
-  fontFamily: fontFamily.sans,
-  fontSize: `var(--datepicker-font-size, ${fontSize.sm})`,
+  fontFamily: typography.body.medium.fontFamily,
+  fontSize: `var(--datepicker-font-size, ${typography.body.medium.fontSize})`,
   cursor: "text",
   boxSizing: "border-box",
   transition: [
@@ -136,7 +135,7 @@ export const size = styleVariants({
       "--datepicker-min-height": "24px",
       "--datepicker-padding-y": space[2],
       "--datepicker-padding-x": space[8],
-      "--datepicker-font-size": fontSize.xs,
+      "--datepicker-font-size": typography.body.small.fontSize,
     },
   },
   medium: {
@@ -144,7 +143,7 @@ export const size = styleVariants({
       "--datepicker-min-height": "32px",
       "--datepicker-padding-y": space[6],
       "--datepicker-padding-x": space[10],
-      "--datepicker-font-size": fontSize.sm,
+      "--datepicker-font-size": typography.body.medium.fontSize,
     },
   },
   large: {
@@ -152,7 +151,7 @@ export const size = styleVariants({
       "--datepicker-min-height": "40px",
       "--datepicker-padding-y": space[8],
       "--datepicker-padding-x": space[12],
-      "--datepicker-font-size": fontSize.md,
+      "--datepicker-font-size": typography.body.large.fontSize,
     },
   },
 });

@@ -10,8 +10,8 @@ contained block in the Catylast app — board cards, dashboard widgets,
 settings tiles, profile blocks, modal content surfaces.
 
 For the architectural rationale (why we don't have a single monolithic card
-component, why we follow Atlassian DS's compositional approach, and how the
-domain-specific `WorkItemCard` will sit on top of this primitive), see
+component, why we follow a compositional design-system approach, and how
+the domain-specific `WorkItemCard` will sit on top of this primitive), see
 **§17 of `CLAUDE.md`** in the repo root.
 
 ## Install
@@ -203,7 +203,7 @@ the same variable directly via `style`:
 
 ## Composition example — work-item card
 
-The Jira-style work-item card is *not* shipped here. Build it from
+The ticket-style work-item card is *not* shipped here. Build it from
 `@catylast/card` plus the design system primitives:
 
 ```tsx

@@ -1,12 +1,11 @@
 import { createVar, style, styleVariants } from "@vanilla-extract/css";
 import {
   color,
-  fontFamily,
-  fontSize,
   fontWeight,
   motion,
   radius,
   space,
+  typography,
 } from "@catylast/tokens";
 
 const cellPadX = createVar();
@@ -99,8 +98,9 @@ export const columnToggleCheck = style({
 export const table = style({
   borderCollapse: "separate",
   borderSpacing: 0,
-  fontFamily: fontFamily.sans,
-  fontSize: fontSize.sm,
+  fontFamily: typography.body.medium.fontFamily,
+  fontSize: typography.body.medium.fontSize,
+  lineHeight: typography.body.medium.lineHeight,
   color: color.text.primary,
   tableLayout: "fixed",
   width: "max-content",
@@ -114,7 +114,10 @@ export const headerCell = style({
   borderBottom: `1px solid ${color.border.default}`,
   padding: `${cellPadY} ${cellPadX}`,
   textAlign: "left",
-  fontSize: fontSize.xs,
+  // Eyebrow-style header row — slot is body.small so it stays small and
+  // tight, then we overlay semibold + uppercase tracking. Same recipe
+  // used by Badge.
+  fontSize: typography.body.small.fontSize,
   fontWeight: fontWeight.semibold,
   color: color.text.subtle,
   textTransform: "uppercase",
@@ -278,7 +281,7 @@ export const stateOverlay = style({
   padding: `${space[40]} ${space[20]}`,
   textAlign: "center",
   color: color.text.subtle,
-  fontSize: fontSize.sm,
+  fontSize: typography.body.medium.fontSize,
   background: color.surface.background,
 });
 
@@ -325,8 +328,8 @@ export const creatorButton = style({
   color: color.text.subtle,
   cursor: "pointer",
   borderRadius: radius.sm,
-  fontFamily: fontFamily.sans,
-  fontSize: fontSize.sm,
+  fontFamily: typography.body.medium.fontFamily,
+  fontSize: typography.body.medium.fontSize,
   fontWeight: fontWeight.medium,
   selectors: {
     "&:hover": {

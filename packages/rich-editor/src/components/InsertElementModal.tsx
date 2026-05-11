@@ -15,7 +15,7 @@ type SidebarKey = "all" | InsertElementCategory;
 const SIDEBAR_LABELS: Record<SidebarKey, string> = {
   all: "All",
   content: "Content",
-  confluence: "Confluence content",
+  workspace: "Workspace content",
   external: "External content",
   development: "Development",
 };
@@ -23,7 +23,7 @@ const SIDEBAR_LABELS: Record<SidebarKey, string> = {
 const SIDEBAR_ORDER: SidebarKey[] = [
   "all",
   "content",
-  "confluence",
+  "workspace",
   "external",
   "development",
 ];

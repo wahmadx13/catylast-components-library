@@ -13,7 +13,7 @@ import * as RichEditorStories from "./RichEditor.stories";
 <Title />
 
 <Subtitle>
-  A Tiptap-backed rich text editor with a Jira-style click-to-edit pattern,
+  A Tiptap-backed rich text editor with a click-to-edit pattern,
   dynamic toolbar (preset / custom array / hidden), slash menu, mentions,
   panels, callouts, and a custom-built block drag-and-drop layer.
 </Subtitle>
@@ -422,7 +422,7 @@ and the slash menu (`/`). Useful for minimal "comment" inputs.
 The toolbar's **+** button opens a compact dropdown of insertable elements
 (icon + title + one-liner) with a search field at the top. Click **Browse
 all** to open the full modal — sidebar with **All** / **Content** /
-**Confluence** / **External** / **Development** categories, search, and a
+**Workspace** / **External** / **Development** categories, search, and a
 card grid.
 
 <Canvas of={RichEditorStories.InsertElementMenu} />
@@ -455,7 +455,7 @@ to swap the list entirely.
 />
 
 Each item supplies an `icon` (`@catylast/icons` glyph name), `label`,
-one-line `description`, `category` (`content` / `confluence` / `external`
+one-line `description`, `category` (`content` / `workspace` / `external`
 / `development`), optional `keywords`, optional `iconTint` (CSS color for
 the icon tile in the modal grid), and a `run({ editor })` callback that
 performs the insert.

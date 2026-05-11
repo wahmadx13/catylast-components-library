@@ -11,7 +11,7 @@ import {
 } from "@catylast/tokens";
 import { useState } from "react";
 
-const componentDescription = `**Card** is the surface primitive for any contained block in Catylast — board cards, dashboard widgets, settings tiles, profile blocks, modal content surfaces. It is *not* a domain-specific component; the Jira-style work-item card is built on top of it (see CLAUDE.md §17 for the architectural rationale).
+const componentDescription = `**Card** is the surface primitive for any contained block in Catylast — board cards, dashboard widgets, settings tiles, profile blocks, modal content surfaces. It is *not* a domain-specific component; the work-item card is built on top of it (see CLAUDE.md §17 for the architectural rationale).
 
 The component ships **three variants**, **five states**, and **four named slots**:
 
@@ -424,7 +424,7 @@ export const WorkItemComposition: Story = {
     docs: {
       description: {
         story:
-          "How a Jira-style work-item card looks when composed from `Card` + design system primitives. This is the pattern the Catylast app uses today; once it stabilizes across surfaces it will be promoted into a dedicated `WorkItemCard` package (see CLAUDE.md §17.3 phase 2). The point of this story is to demonstrate that the primitive is enough — no domain knowledge baked into `@catylast/card`.",
+          "How a work-item card looks when composed from `Card` + design system primitives. This is the pattern the Catylast app uses today; once it stabilizes across surfaces it will be promoted into a dedicated `WorkItemCard` package (see CLAUDE.md §17.3 phase 2). The point of this story is to demonstrate that the primitive is enough — no domain knowledge baked into `@catylast/card`.",
       },
     },
   },

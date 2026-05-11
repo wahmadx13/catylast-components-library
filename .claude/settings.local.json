@@ -21,7 +21,9 @@
       "PowerShell(Rename-Item *)",
       "PowerShell($lockedItems = @\\(\\); Get-ChildItem -Path \"C:\\\\Users\\\\wasim\\\\OneDrive\\\\Desktop\\\\catylast-storybook\\\\packages\\\\react-primitives\" -Recurse -Force -ErrorAction SilentlyContinue | ForEach-Object { try { [IO.File]::Open\\($_.FullName, 'Open', 'Read', 'None'\\).Close\\(\\) } catch { $lockedItems += $_.FullName } }; if \\($lockedItems.Count -eq 0\\) { Write-Output \"no locks detected\" } else { Write-Output \"locked files:\"; $lockedItems | Select-Object -First 10 })",
       "PowerShell(Get-Item *)",
-      "Bash(xargs sed *)"
+      "Bash(xargs sed *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:6006/)",
+      "PowerShell(Get-NetTCPConnection *)"
     ]
   }
 }

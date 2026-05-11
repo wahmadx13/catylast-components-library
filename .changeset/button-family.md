@@ -2,8 +2,9 @@
 "@catylast/primitives": minor
 ---
 
-Ship the full Button family with Atlassian-Design-System-style surface
-area, fully customisable through props *and* CSS variables.
+Ship the full Button family with the surface area expected from a
+modern design system, fully customisable through props *and* CSS
+variables.
 
 **New components:**
 - `LinkButton` — Button rendered as `<a>` (or any router Link). Same

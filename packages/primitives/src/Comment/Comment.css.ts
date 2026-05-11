@@ -1,12 +1,11 @@
 import { keyframes, style, styleVariants } from "@vanilla-extract/css";
 import {
   color,
-  fontFamily,
-  fontSize,
   fontWeight,
   motion,
   radius,
   space,
+  typography,
 } from "@catylast/tokens";
 
 /*
@@ -23,8 +22,9 @@ export const root = style({
   display: "flex",
   alignItems: "flex-start",
   gap: `var(--comment-gap, ${space[12]})`,
-  fontFamily: fontFamily.sans,
-  fontSize: `var(--comment-font-size, ${fontSize.sm})`,
+  fontFamily: typography.body.medium.fontFamily,
+  fontSize: `var(--comment-font-size, ${typography.body.medium.fontSize})`,
+  lineHeight: typography.body.medium.lineHeight,
   color: `var(--comment-color, ${color.text.primary})`,
   padding: `var(--comment-padding, ${space[8]})`,
   background: `var(--comment-bg, transparent)`,
@@ -76,7 +76,7 @@ export const header = style({
   alignItems: "center",
   flexWrap: "wrap",
   gap: `var(--comment-header-gap, ${space[6]})`,
-  fontSize: `var(--comment-header-font-size, ${fontSize.sm})`,
+  fontSize: `var(--comment-header-font-size, ${typography.body.small.fontSize})`,
   color: `var(--comment-header-color, ${color.text.subtle})`,
   lineHeight: 1.4,
 });
@@ -96,7 +96,7 @@ export const typeTag = style({
   background: `var(--comment-type-bg, ${color.surface.raised})`,
   color: `var(--comment-type-color, ${color.text.subtle})`,
   border: `1px solid ${color.border.subtle}`,
-  fontSize: fontSize.xs,
+  fontSize: typography.body.small.fontSize,
   fontWeight: fontWeight.medium,
   textTransform: "uppercase",
   letterSpacing: "0.04em",
@@ -107,7 +107,7 @@ export const restricted = style({
   alignItems: "center",
   gap: "4px",
   color: `var(--comment-restricted-color, ${color.text.warning})`,
-  fontSize: fontSize.xs,
+  fontSize: typography.body.small.fontSize,
   fontWeight: fontWeight.medium,
 });
 
@@ -123,7 +123,7 @@ export const headerSeparator = style({
 export const time = style({
   color: `var(--comment-time-color, ${color.text.subtle})`,
   textDecoration: "none",
-  fontSize: fontSize.xs,
+  fontSize: typography.body.small.fontSize,
   selectors: {
     "&:is(a):hover": {
       textDecoration: "underline",
@@ -178,7 +178,7 @@ export const savingOverlay = style({
   alignItems: "center",
   gap: "6px",
   marginTop: space[4],
-  fontSize: fontSize.xs,
+  fontSize: typography.body.small.fontSize,
   color: color.text.subtle,
   animation: `${pulse} 1.4s ease-in-out infinite`,
 });
@@ -210,24 +210,24 @@ export const nested = style({
 export const size = styleVariants({
   small: {
     vars: {
-      "--comment-font-size": fontSize.xs,
-      "--comment-header-font-size": fontSize.xs,
+      "--comment-font-size": typography.body.small.fontSize,
+      "--comment-header-font-size": typography.body.small.fontSize,
       "--comment-padding": space[6],
       "--comment-gap": space[8],
     },
   },
   medium: {
     vars: {
-      "--comment-font-size": fontSize.sm,
-      "--comment-header-font-size": fontSize.sm,
+      "--comment-font-size": typography.body.medium.fontSize,
+      "--comment-header-font-size": typography.body.small.fontSize,
       "--comment-padding": space[8],
       "--comment-gap": space[12],
     },
   },
   large: {
     vars: {
-      "--comment-font-size": fontSize.md,
-      "--comment-header-font-size": fontSize.sm,
+      "--comment-font-size": typography.body.large.fontSize,
+      "--comment-header-font-size": typography.body.medium.fontSize,
       "--comment-padding": space[12],
       "--comment-gap": space[16],
     },
