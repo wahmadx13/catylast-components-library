@@ -17,7 +17,14 @@ the domain-specific `WorkItemCard` will sit on top of this primitive), see
 ## Install
 
 ```bash
+# pnpm
 pnpm add @catylast/card
+
+# npm
+npm install @catylast/card
+
+# yarn
+yarn add @catylast/card
 ```
 
 ```tsx

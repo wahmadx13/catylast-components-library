@@ -7,7 +7,14 @@ for the Catylast component library. Drives the `data-theme` attribute that
 ## Install
 
 ```bash
+# pnpm
 pnpm add @catylast/theme @catylast/tokens
+
+# npm
+npm install @catylast/theme @catylast/tokens
+
+# yarn
+yarn add @catylast/theme @catylast/tokens
 ```
 
 ## Use — top-level

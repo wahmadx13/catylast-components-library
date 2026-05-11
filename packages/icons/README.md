@@ -8,7 +8,14 @@ is a one-file edit (`src/registry.ts`) and consumer code stays untouched.
 ## Install
 
 ```bash
+# pnpm
 pnpm add @catylast/icons
+
+# npm
+npm install @catylast/icons
+
+# yarn
+yarn add @catylast/icons
 ```
 
 ## Use

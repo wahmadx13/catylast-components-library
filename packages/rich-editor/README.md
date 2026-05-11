@@ -7,7 +7,14 @@ features are dynamic via prop — pick a preset or supply your own subset.
 ## Install
 
 ```bash
+# pnpm
 pnpm add @catylast/rich-editor @catylast/primitives @catylast/tokens
+
+# npm
+npm install @catylast/rich-editor @catylast/primitives @catylast/tokens
+
+# yarn
+yarn add @catylast/rich-editor @catylast/primitives @catylast/tokens
 ```
 
 Import the CSS once:

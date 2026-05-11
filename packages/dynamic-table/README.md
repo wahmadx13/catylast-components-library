@@ -8,7 +8,14 @@ markup, styles, and accessibility wiring.
 ## Install
 
 ```bash
+# pnpm
 pnpm add @catylast/dynamic-table @catylast/primitives @catylast/tokens
+
+# npm
+npm install @catylast/dynamic-table @catylast/primitives @catylast/tokens
+
+# yarn
+yarn add @catylast/dynamic-table @catylast/primitives @catylast/tokens
 ```
 
 ## Use

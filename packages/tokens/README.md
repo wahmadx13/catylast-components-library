@@ -8,7 +8,14 @@ CSS custom properties.
 ## Install
 
 ```bash
+# pnpm
 pnpm add @catylast/tokens
+
+# npm
+npm install @catylast/tokens
+
+# yarn
+yarn add @catylast/tokens
 ```
 
 ## Use

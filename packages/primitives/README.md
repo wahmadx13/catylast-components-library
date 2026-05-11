@@ -7,7 +7,14 @@ are written in vanilla-extract and resolve through `@catylast/tokens`.
 ## Install
 
 ```bash
+# pnpm
 pnpm add @catylast/primitives @catylast/tokens
+
+# npm
+npm install @catylast/primitives @catylast/tokens
+
+# yarn
+yarn add @catylast/primitives @catylast/tokens
 ```
 
 ## Components (wave 1)
