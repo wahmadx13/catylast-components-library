@@ -394,6 +394,137 @@ export const Loading: Story = {
   ),
 };
 
+// ---------- pagination ----------
+
+type PaginationStoryArgs = {
+  position: "start" | "center" | "end";
+  pageSize: number;
+};
+
+export const Pagination: StoryObj<PaginationStoryArgs> = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Pagination is on by default with `pageSize: 20` — the chrome renders below the table whenever there are more rows than fit on one page, and auto-hides when there's only one page so single-page tables don't get useless chrome.\n\n**Outside the scroll region.** The pagination footer is fixed at the bottom of the table container, OUTSIDE the scrolling row area. Even with hundreds of rows, the user never has to scroll to find the next-page button.\n\n**Use the Controls panel below** to flip the `position` between `start` / `center` / `end` and to change `pageSize` live.\n\n**Configuration:**\n\n- **Default** — `pageSize: 20`, `position: \"center\"`\n- **Custom page size** — `pagination={{ pageSize: 10 }}`\n- **Position** — `pagination={{ position: \"start\" | \"center\" | \"end\" }}`\n- **Disable entirely** — `pagination={false}` renders every row, no chrome\n- **Controlled** — `pagination={{ page, onPageChange, pageSize }}` drives page state from the outside (URL-synced, etc.)\n\nThe pagination component itself is `@catylast/primitives/Pagination` — built standalone and reused here. Visit **Navigation → Pagination** to see the primitive in isolation.",
+      },
+    },
+  },
+  args: {
+    position: "center",
+    pageSize: 10,
+  },
+  argTypes: {
+    position: {
+      control: { type: "inline-radio" },
+      options: ["start", "center", "end"],
+      description: "Horizontal placement of the pagination chrome inside the footer bar.",
+    },
+    pageSize: {
+      control: { type: "number", min: 1, max: 50 },
+      description: "Rows per page. Default is 20.",
+    },
+  },
+  render: (args) => (
+    <div style={wrapStyleMid}>
+      <DynamicTable
+        columns={displayColumns}
+        data={flatIssues}
+        pagination={{
+          pageSize: args.pageSize,
+          position: args.position,
+        }}
+      />
+    </div>
+  ),
+};
+
+export const PaginationPositions: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "The `position` prop on `pagination` controls horizontal alignment inside the footer bar. Three values:\n\n- **`start`** — pinned to the left edge.\n- **`center`** (default) — middle of the bar.\n- **`end`** — pinned to the right edge.\n\nThis story renders three tables back-to-back so you can compare side-by-side. The bar itself always sits outside the scrolling region, so the chevrons are reachable without scrolling.",
+      },
+    },
+  },
+  render: function PositionStory() {
+    const small = flatIssues.slice(0, 25);
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: space[20],
+          padding: space[16],
+          fontFamily: fontFamily.sans,
+        }}
+      >
+        <section>
+          <div
+            style={{
+              fontSize: "12px",
+              color: "var(--catylast-color-text-subtle)",
+              marginBottom: space[8],
+              textTransform: "uppercase",
+              letterSpacing: "0.04em",
+            }}
+          >
+            position = start
+          </div>
+          <div style={{ height: "260px" }}>
+            <DynamicTable
+              columns={basicColumns}
+              data={small}
+              pagination={{ pageSize: 10, position: "start" }}
+            />
+          </div>
+        </section>
+        <section>
+          <div
+            style={{
+              fontSize: "12px",
+              color: "var(--catylast-color-text-subtle)",
+              marginBottom: space[8],
+              textTransform: "uppercase",
+              letterSpacing: "0.04em",
+            }}
+          >
+            position = center (default)
+          </div>
+          <div style={{ height: "260px" }}>
+            <DynamicTable
+              columns={basicColumns}
+              data={small}
+              pagination={{ pageSize: 10 }}
+            />
+          </div>
+        </section>
+        <section>
+          <div
+            style={{
+              fontSize: "12px",
+              color: "var(--catylast-color-text-subtle)",
+              marginBottom: space[8],
+              textTransform: "uppercase",
+              letterSpacing: "0.04em",
+            }}
+          >
+            position = end
+          </div>
+          <div style={{ height: "260px" }}>
+            <DynamicTable
+              columns={basicColumns}
+              data={small}
+              pagination={{ pageSize: 10, position: "end" }}
+            />
+          </div>
+        </section>
+      </div>
+    );
+  },
+};
+
 // ---------- icon-only column variant (previewTitle prop) ----------
 
 export const IconOnlyType: Story = {

@@ -425,6 +425,100 @@ and stays visible during horizontal scroll.
 
 ---
 
+## Pagination
+
+Pagination is **on by default** with `pageSize: 20`. The chrome renders
+in a fixed footer band **outside the scrolling row region** — even with
+hundreds of rows in the table, the next-page button is always visible
+without scrolling. When there's only one page worth of data, the chrome
+auto-hides so single-page tables don't get a useless `1` button.
+
+Use the **Controls** panel under the canvas below to flip `position`
+between `start` / `center` / `end` and to change `pageSize` live.
+
+<Canvas of={DynamicTableStories.Pagination} />
+
+<Controls of={DynamicTableStories.Pagination} />
+
+### Configuration
+
+The `pagination` prop accepts three shapes:
+
+| Value | Behaviour |
+| --- | --- |
+| **Omitted** (default) | Pagination on. `pageSize: 20`, `position: "center"`, `hideOnSinglePage: true`. |
+| `false` | Disabled entirely. Every row renders, no chrome. Use for static reports or export views. |
+| Object | Customise any of `pageSize`, `position`, `hideOnSinglePage`, or pass `page` + `onPageChange` for controlled mode. |
+
+<Source
+  language="tsx"
+  code={`// Default — pageSize 20, centered chrome, hides on single page
+<DynamicTable columns={columns} data={rows} />
+
+// Disable entirely — render every row
+<DynamicTable columns={columns} data={rows} pagination={false} />
+
+// Custom page size
+<DynamicTable
+  columns={columns}
+  data={rows}
+  pagination={{ pageSize: 10 }}
+/>
+
+// Position the chrome at start / center / end of the footer
+<DynamicTable
+  columns={columns}
+  data={rows}
+  pagination={{ pageSize: 10, position: "start" }}
+/>
+
+// Controlled — drive page state from outside (URL-synced, etc.)
+<DynamicTable
+  columns={columns}
+  data={rows}
+  pagination={{
+    pageSize: 25,
+    page,
+    onPageChange: setPage,
+  }}
+/>`}
+/>
+
+### Position — start / center / end
+
+Three placements inside the footer band. `center` is the default; use
+`start` to pin to the left edge or `end` to pin to the right. The footer
+bar itself always sits outside the scroll region, so the chrome stays
+reachable regardless of how many rows are in the table.
+
+<Canvas of={DynamicTableStories.PaginationPositions} />
+
+### Scroll behaviour
+
+The container is a vertical flex layout: toolbar (if any), the scrolling
+row region, and the pagination footer are three independent rows. The
+row region absorbs whatever height is left after the toolbar and footer
+claim theirs. This means:
+
+- A bounded-height wrapper (`height: 640px`, a flex parent, etc.) → rows
+  scroll inside the bounded region, pagination stays pinned at the
+  bottom of the visible container.
+- An unbounded wrapper (`height: auto`) → the table renders all rows in
+  flow with pagination after them; nothing scrolls.
+
+Either way, the user never has to scroll past hundreds of rows to find
+the next-page button.
+
+### Pagination primitive
+
+The chrome itself comes from `@catylast/primitives/Pagination` — a
+standalone component you can use anywhere a paginated collection appears
+(comment threads, archived issue lists, audit logs, search results). The
+DynamicTable just composes it inside its footer slot. See
+**Navigation → Pagination** for the primitive's API in isolation.
+
+---
+
 ## States
 
 ### Read-only

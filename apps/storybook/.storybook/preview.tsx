@@ -89,6 +89,7 @@ const preview: Preview = {
           "Forms",
           "Display",
           "Overlay",
+          "Navigation",
           "Data",
         ],
       },

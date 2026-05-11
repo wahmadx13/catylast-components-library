@@ -2,6 +2,7 @@ import {
   flexRender,
   getCoreRowModel,
   getExpandedRowModel,
+  getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
@@ -11,6 +12,7 @@ import type {
   ColumnSizingState,
   ExpandedState,
   OnChangeFn,
+  PaginationState,
   RowSelectionState,
   SortingState,
   VisibilityState,
@@ -24,6 +26,7 @@ import {
   MenuItem,
   MenuLabel,
   MenuTrigger,
+  Pagination,
 } from "@catylast/primitives";
 import { useEffect, useMemo, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
@@ -32,6 +35,41 @@ import * as styles from "./DynamicTable.css";
 import { cx } from "./utils";
 
 export type DynamicTableDensity = "compact" | "standard" | "comfortable";
+
+/**
+ * Pagination configuration. Three shapes:
+ *
+ * - **Omitted (default)** — pagination is on with `pageSize: 20`. The
+ *   pagination chrome auto-hides when the table has only one page.
+ * - **`false`** — fully disabled. Every row renders, no chrome.
+ * - **Object** — override defaults. Pass `pageSize` to change the page
+ *   size; pass `page` + `onPageChange` for controlled mode (useful for
+ *   URL-synced pagination).
+ */
+export type DynamicTablePaginationPosition = "start" | "center" | "end";
+
+export type DynamicTablePagination =
+  | false
+  | {
+      /** Rows per page. @default 20 */
+      pageSize?: number;
+      /** Controlled current page (1-indexed). Pair with `onPageChange`. */
+      page?: number;
+      /** Called when the user picks a different page. */
+      onPageChange?: (page: number) => void;
+      /**
+       * Hide the chrome when there's only one page. @default true — most
+       * surfaces don't want to show `1` chrome under a 5-row table.
+       */
+      hideOnSinglePage?: boolean;
+      /**
+       * Horizontal placement inside the footer bar. The footer itself
+       * always sits outside the scrolling region so users never have to
+       * scroll to find the page controls.
+       * @default "center"
+       */
+      position?: DynamicTablePaginationPosition;
+    };
 
 export type DynamicTableProps<TData> = {
   /** Column definitions. Wrap in `useMemo` for a stable reference. */
@@ -113,6 +151,13 @@ export type DynamicTableProps<TData> = {
    * footer cell.
    */
   renderCreator?: () => ReactNode;
+  /**
+   * Pagination. Omit for default behaviour (`pageSize: 20`, auto-hide
+   * chrome when there's only one page), pass `false` to render every
+   * row, or pass an object to customize / control. See
+   * `DynamicTablePagination` for the full shape.
+   */
+  pagination?: DynamicTablePagination;
   className?: string;
   style?: CSSProperties;
 };
@@ -146,9 +191,46 @@ export function DynamicTable<TData>(props: DynamicTableProps<TData>) {
     createLabel,
     onCreate,
     renderCreator,
+    pagination,
     className,
     style,
   } = props;
+
+  // Pagination normalization.
+  // - `pagination === false` → disabled entirely (no row windowing).
+  // - object → `pageSize` (default 20), optional controlled `page` +
+  //   `onPageChange`, `hideOnSinglePage` (default true).
+  // - omitted → defaults: enabled, pageSize 20, hide-on-single-page.
+  const paginationEnabled = pagination !== false;
+  const paginationConfig = paginationEnabled
+    ? typeof pagination === "object" && pagination !== null
+      ? pagination
+      : {}
+    : null;
+  const paginationPageSize = paginationConfig?.pageSize ?? 20;
+  const paginationControlled = paginationConfig?.page !== undefined;
+  const paginationHideOnSingle = paginationConfig?.hideOnSinglePage ?? true;
+  const paginationPosition: DynamicTablePaginationPosition =
+    paginationConfig?.position ?? "center";
+  const [internalPagination, setInternalPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: paginationPageSize,
+  });
+  // Keep the internal pageSize aligned with the prop's pageSize on
+  // change without resetting the user's current page index.
+  useEffect(() => {
+    setInternalPagination((prev) =>
+      prev.pageSize === paginationPageSize
+        ? prev
+        : { ...prev, pageSize: paginationPageSize },
+    );
+  }, [paginationPageSize]);
+  const paginationState: PaginationState = paginationControlled
+    ? {
+        pageIndex: (paginationConfig?.page ?? 1) - 1,
+        pageSize: paginationPageSize,
+      }
+    : internalPagination;
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [internalExpanded, setInternalExpanded] = useState<ExpandedState>({});
@@ -242,6 +324,7 @@ export function DynamicTable<TData>(props: DynamicTableProps<TData>) {
       columnSizing,
       columnVisibility,
       columnPinning: pinnedColumns ? { left: pinnedColumns } : {},
+      ...(paginationEnabled && { pagination: paginationState }),
     },
     enableRowSelection: enableSelection,
     enableExpanding: enableExpansion,
@@ -254,9 +337,16 @@ export function DynamicTable<TData>(props: DynamicTableProps<TData>) {
     onRowSelectionChange: setRowSelection,
     onColumnSizingChange: setColumnSizing,
     onColumnVisibilityChange: setColumnVisibility,
+    ...(paginationEnabled &&
+      !paginationControlled && {
+        onPaginationChange: setInternalPagination,
+      }),
     getCoreRowModel: getCoreRowModel(),
     ...(enableSorting && { getSortedRowModel: getSortedRowModel() }),
     ...(enableExpansion && { getExpandedRowModel: getExpandedRowModel() }),
+    ...(paginationEnabled && {
+      getPaginationRowModel: getPaginationRowModel(),
+    }),
     ...(getRowChildren && { getSubRows: getRowChildren }),
     ...(getRowId && { getRowId: (row: TData) => getRowId(row) }),
   });
@@ -484,6 +574,32 @@ export function DynamicTable<TData>(props: DynamicTableProps<TData>) {
           <div className={styles.stateOverlay}>{empty ?? "No rows"}</div>
         )}
       </div>
+      {paginationEnabled &&
+        (() => {
+          const pageCount = table.getPageCount();
+          if (paginationHideOnSingle && pageCount <= 1) return null;
+          return (
+            <div
+              className={cx(
+                styles.paginationBar,
+                styles.paginationBarPosition[paginationPosition],
+              )}
+            >
+              <Pagination
+                pageCount={pageCount}
+                page={paginationState.pageIndex + 1}
+                onPageChange={(nextPage) => {
+                  const next = { ...paginationState, pageIndex: nextPage - 1 };
+                  if (paginationControlled) {
+                    paginationConfig?.onPageChange?.(nextPage);
+                  } else {
+                    setInternalPagination(next);
+                  }
+                }}
+              />
+            </div>
+          );
+        })()}
     </div>
   );
 }

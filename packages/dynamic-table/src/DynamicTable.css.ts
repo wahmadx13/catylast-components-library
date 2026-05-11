@@ -14,6 +14,24 @@ const rowHeight = createVar();
 
 export const container = style({
   position: "relative",
+  // Flex-column layout so the toolbar, scrolling table region, and
+  // pagination footer each get the height they need without the
+  // scrolling region pushing pagination out of view. The scrollArea
+  // below sets `flex: 1` + `min-height: 0` so it absorbs whatever
+  // height the container has after toolbar / pagination take theirs.
+  //
+  // `height: 100%` is the critical line — without it, the container
+  // grows to fit its content (toolbar + every row + pagination) and
+  // the parent's bounded height has no effect, so scrolling never
+  // happens and pagination ends up below the viewport. With `height:
+  // 100%`, the container claims whatever height the parent gives it;
+  // if the parent is unbounded (`height: auto`), this resolves to auto
+  // and behavior degrades gracefully — table renders all rows in flow
+  // with pagination at the bottom, no scroll needed.
+  display: "flex",
+  flexDirection: "column",
+  height: "100%",
+  minHeight: 0,
   background: color.surface.background,
   border: `1px solid ${color.border.default}`,
   borderRadius: radius.md,
@@ -58,13 +76,14 @@ export const densityComfortable = style({
 });
 
 export const scrollArea = style({
+  // Flex grow + `min-height: 0` is the standard incantation that lets a
+  // flex child shrink below its content size so the inner element can
+  // actually scroll. Without `min-height: 0` the body would grow past
+  // the container and push the pagination footer off-screen.
+  flex: 1,
+  minHeight: 0,
   overflowX: "auto",
   overflowY: "auto",
-  // The container's `overflow: visible` lets dropdowns / popovers escape
-  // the table surface. Round the bottom corners here so the inner
-  // scrolled content still respects the table's rounded corners.
-  borderBottomLeftRadius: radius.md,
-  borderBottomRightRadius: radius.md,
 });
 
 export const toolbar = style({
@@ -347,4 +366,25 @@ export const density = styleVariants({
   compact: [densityCompact],
   standard: [densityStandard],
   comfortable: [densityComfortable],
+});
+
+// ---------- pagination footer ----------
+
+export const paginationBar = style({
+  display: "flex",
+  alignItems: "center",
+  padding: `${space[6]} ${space[12]}`,
+  borderTop: `1px solid ${color.border.subtle}`,
+  background: color.surface.background,
+  flexShrink: 0,
+});
+
+// Position variants — controls justifyContent so the pagination sits
+// at the start, center, or end of the bar. Centered is the default per
+// design preference. Always sits in its own fixed-height footer band
+// outside the scrolling region.
+export const paginationBarPosition = styleVariants({
+  start: { justifyContent: "flex-start" },
+  center: { justifyContent: "center" },
+  end: { justifyContent: "flex-end" },
 });

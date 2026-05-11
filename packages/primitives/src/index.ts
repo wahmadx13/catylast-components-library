@@ -165,6 +165,9 @@ export type {
 export { Tooltip } from "./Tooltip";
 export type { TooltipProps } from "./Tooltip";
 
+export { Pagination } from "./Pagination";
+export type { PaginationProps, PaginationSize } from "./Pagination";
+
 export { Heading, Text, Metric, Code } from "./Typography";
 export type {
   CodeProps,
